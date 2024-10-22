@@ -2,6 +2,8 @@ package com.example.plugins
 
 import io.ktor.http.*
 import io.ktor.server.application.*
+import io.ktor.server.auth.authenticate
+import io.ktor.server.auth.authentication
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -15,6 +17,12 @@ fun Application.configureRouting() {
     routing {
         get("/") {
             call.respondText("Hello World!")
+        }
+
+        authenticate("auth-jwt") {
+           get("/auth"){
+               call.respondText("authenticated")
+           }
         }
     }
 }
