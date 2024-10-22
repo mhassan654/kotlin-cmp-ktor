@@ -1,5 +1,3 @@
-
-
 plugins {
     kotlin("jvm") version "2.0.20"
     id("io.ktor.plugin") version "3.0.0"
@@ -33,4 +31,23 @@ dependencies {
     implementation(libs.logback)
     testImplementation(libs.ktor.server.test.host.jvm)
     testImplementation(libs.kotlin.test.junit)
+
+    //database
+    implementation(libs.exposed.core)
+    implementation(libs.exposed.crypt)
+    implementation(libs.exposed.dao)
+    implementation(libs.exposed.jdbc)
+    implementation(libs.postgresql)
+
+
+    // optional jodatime
+//    implementation("org.jetbrains.exposed:exposed-jodatime:$exposedVersion")
+//    // optional java-time
+//    implementation("org.jetbrains.exposed:exposed-java-time:$exposedVersion")
+//    // optional kotlin-datetime
+//    implementation("org.jetbrains.exposed:exposed-kotlin-datetime:$exposedVersion")
+//    // optional json
+//    implementation("org.jetbrains.exposed:exposed-json:$exposedVersion")
+//    // optional money
+//    implementation("org.jetbrains.exposed:exposed-money:$exposedVersion")
 }
