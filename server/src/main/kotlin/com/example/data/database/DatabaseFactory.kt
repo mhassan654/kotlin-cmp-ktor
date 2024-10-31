@@ -10,11 +10,11 @@ object DatabaseFactory {
 
    fun init() {
         Database.connect(
-            url =  "jdbc:postgresql://localhost:5432/travenor_db",
+            url =  "jdbc:postgresql://127.0.0.1:5433/travenor_db", //postgresql://postgres:root@127.0.0.1:5433/travenor_db
             driver = "org.postgresql.Driver",
             user = "postgres",
-            password = "password"
-        )-m
+            password = "root"
+        )
 
         transaction{
             SchemaUtils.create(

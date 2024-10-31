@@ -1,3 +1,4 @@
+
 plugins {
     kotlin("jvm") version "2.0.20"
     id("io.ktor.plugin") version "3.0.0"
@@ -38,6 +39,10 @@ dependencies {
     implementation(libs.exposed.dao)
     implementation(libs.exposed.jdbc)
     implementation(libs.postgresql)
+
+    // Declare the koin dependencies that you need
+
+
 
 
     // optional jodatime

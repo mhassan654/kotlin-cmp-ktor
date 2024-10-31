@@ -11,7 +11,7 @@ import io.ktor.server.response.*
 const val jwtAudience = "jwt-audience"
 const val jwtDomain = "https://jwt-provider-domain/"
 const val jwtRealm = "ktor sample app"
-const val jwtSecret = "secret"
+const val jwtSecret = "secretASDFGH1234567890"
 fun Application.configureSecurity() {
     // Please read the jwt property from the config file if you are using EngineMain
 
