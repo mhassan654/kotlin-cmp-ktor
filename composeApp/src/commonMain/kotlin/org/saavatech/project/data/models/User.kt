@@ -1,4 +1,6 @@
 package org.saavatech.project.data.models
 
-class User {
-}
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class User(val name: String, val email:String,val id:Long)
