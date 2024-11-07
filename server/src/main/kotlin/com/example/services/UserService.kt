@@ -19,15 +19,23 @@ class UserService(val _userRepository: UserRepository) {
       }
         val user = _userRepository.register(userRequest.copy(password = hashPassword(userRequest.password)))
       print( user)
-      return UserResponse(user, generateJwtToken(user.email))
+      return UserResponse(user, generateJwtToken(user.email,user.id))
+    }
+
+    suspend fun loginUser(email:String,password: String): UserResponse{
+        val hashedPassword = hashPassword(password)
+        val user= _userRepository.loginIn(email,password)?: throw IllegalArgumentException("Invalid credentials")
+        return UserResponse(user, generateJwtToken(user.email,user.id))
+
     }
 
     //configure jwt token
-    fun generateJwtToken(email:String): String{
+    fun generateJwtToken(email:String,id:Long): String{
         return JWT.create()
             .withAudience(jwtAudience)
             .withIssuer(jwtDomain)
             .withClaim("email",email)
+            .withClaim("userId",id)
             .withExpiresAt(Date(System.currentTimeMillis() + (24*60*60*60*1000L)))
             .sign(Algorithm.HMAC256(jwtSecret))
     }

@@ -1,4 +1,4 @@
-package com.example
+ package com.example
 
 import com.example.data.database.DatabaseFactory
 import com.example.plugins.*
