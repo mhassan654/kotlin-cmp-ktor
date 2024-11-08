@@ -22,7 +22,6 @@ fun Route.userRoutes(userService: UserService){
             val request = call.receive<UserRequest>()
             val response = userService.createUser(request)
             call.respond(HttpStatusCode.OK,response)
-
         }
     }
 }

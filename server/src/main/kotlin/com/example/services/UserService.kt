@@ -18,13 +18,12 @@ class UserService(val _userRepository: UserRepository) {
           throw IllegalArgumentException("user with email ${userRequest.email} already exists!")
       }
         val user = _userRepository.register(userRequest.copy(password = hashPassword(userRequest.password)))
-      print( user)
       return UserResponse(user, generateJwtToken(user.email,user.id))
     }
 
     suspend fun loginUser(email:String,password: String): UserResponse{
         val hashedPassword = hashPassword(password)
-        val user= _userRepository.loginIn(email,password)?: throw IllegalArgumentException("Invalid credentials")
+        val user= _userRepository.loginIn(email,hashedPassword)?: throw IllegalArgumentException("Invalid credentials")
         return UserResponse(user, generateJwtToken(user.email,user.id))
 
     }
