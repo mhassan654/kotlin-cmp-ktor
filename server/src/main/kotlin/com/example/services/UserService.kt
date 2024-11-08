@@ -15,7 +15,7 @@ class UserService(val _userRepository: UserRepository) {
   suspend  fun createUser(userRequest: UserRequest): UserResponse{
       val userExists = _userRepository.findUserByEmail(userRequest.email)
       if (userExists != null){
-          throw IllegalArgumentException("user with email ${userRequest.email} already exists!")
+          throw IllegalArgumentException("User with email ${userRequest.email} already exists!")
       }
         val user = _userRepository.register(userRequest.copy(password = hashPassword(userRequest.password)))
       return UserResponse(user, generateJwtToken(user.email,user.id))

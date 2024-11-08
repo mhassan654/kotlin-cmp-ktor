@@ -11,7 +11,9 @@ import kotlinx.serialization.json.Json
 import org.koin.compose.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
+import org.saavatech.project.cache.TravenorSession
 import org.saavatech.project.data.NetworkService
+import org.saavatech.project.viewModal.LoginViewModel
 import org.saavatech.project.viewModal.RegisterViewModal
 
 //expect val platformModule: Module
@@ -45,6 +47,13 @@ val shareModule= module {
     }
 
     viewModel {
-        RegisterViewModal(get())
+        RegisterViewModal(get(),get())
+    }
+
+    viewModel {
+        LoginViewModel(get(),get())
+    }
+    single{
+        TravenorSession(get())
     }
 }

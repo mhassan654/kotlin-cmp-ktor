@@ -11,14 +11,23 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpMethod
 import io.ktor.http.contentType
 import io.ktor.utils.io.errors.IOException
+import org.saavatech.project.data.Requests.LoginRequest
 import org.saavatech.project.data.Requests.RegisterRequest
 import org.saavatech.project.data.Responses.RegisterResponse
 
 class NetworkService(val httpClient: HttpClient) {
-    val baseUrl= "http://192.168.0.128:8080"
+    val baseUrl= "http://192.168.0.108:8080"
 
     suspend fun register(registerRequest: RegisterRequest): ResultResponse<RegisterResponse>{
-        return makeWebRequest<RegisterResponse>("$baseUrl/users/register",HttpMethod.Post, body = registerRequest)
+        return makeWebRequest<RegisterResponse>("$baseUrl/users/auth",HttpMethod.Post, body = registerRequest)
+    }
+
+    suspend fun login(request: LoginRequest): ResultResponse<RegisterResponse>{
+        return makeWebRequest<RegisterResponse>(
+            "$baseUrl/users/login",
+            HttpMethod.Post,
+            body = request
+        )
     }
 
     suspend inline fun <reified T> makeWebRequest(

@@ -7,7 +7,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 class UserRepository {
     suspend fun findUserByEmail(email: String): User?=transaction{
-        UserTable.select(UserTable.email).where{
+        UserTable.select(UserTable.email, UserTable.name, UserTable.id).where{
             UserTable.email eq email
         }.map {
             User(

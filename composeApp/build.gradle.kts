@@ -60,6 +60,9 @@ kotlin {
             implementation(libs.ktor.client.cio)
             implementation(libs.ktor.client.logging)
 
+            implementation(libs.datastore)
+            implementation(libs.datastore.preferences)
+            implementation(libs.androidx.navigation.compose)
         }
     }
 }
@@ -92,6 +95,7 @@ android {
 }
 
 dependencies {
+
     debugImplementation(compose.uiTooling)
 }
 

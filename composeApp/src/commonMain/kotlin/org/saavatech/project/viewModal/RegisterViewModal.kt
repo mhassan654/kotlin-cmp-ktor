@@ -5,11 +5,12 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.saavatech.project.cache.TravenorSession
 import org.saavatech.project.data.NetworkService
 import org.saavatech.project.data.Requests.RegisterRequest
 import org.saavatech.project.data.ResultResponse
 
-class RegisterViewModal(val networkService: NetworkService):ViewModel() {
+class RegisterViewModal(val networkService: NetworkService,private val session: TravenorSession):ViewModel() {
     private val _uiState = MutableStateFlow<RegisterState>(RegisterState.Nothing)
     val uiState = _uiState.asStateFlow()
 
@@ -27,6 +28,7 @@ class RegisterViewModal(val networkService: NetworkService):ViewModel() {
             when (response){
                 is ResultResponse.Success->{
                     _uiState.value =RegisterState.Success
+                    session.saveToken(response.value.token)
                 }
 
                 is ResultResponse.Error->{
