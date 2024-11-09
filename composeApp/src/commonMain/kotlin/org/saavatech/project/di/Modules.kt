@@ -53,7 +53,7 @@ val shareModule= module {
     viewModel {
         LoginViewModel(get(),get())
     }
-    single{
+    single<TravenorSession>{
         TravenorSession(get())
     }
 }

@@ -15,8 +15,9 @@ import org.saavatech.project.data.Requests.LoginRequest
 import org.saavatech.project.data.Requests.RegisterRequest
 import org.saavatech.project.data.Responses.RegisterResponse
 
+expect val baseUrl: String
 class NetworkService(val httpClient: HttpClient) {
-    val baseUrl= "http://192.168.0.108:8080"
+//    val baseUrl= "http://192.168.0.119:8080"
 
     suspend fun register(registerRequest: RegisterRequest): ResultResponse<RegisterResponse>{
         return makeWebRequest<RegisterResponse>("$baseUrl/users/auth",HttpMethod.Post, body = registerRequest)

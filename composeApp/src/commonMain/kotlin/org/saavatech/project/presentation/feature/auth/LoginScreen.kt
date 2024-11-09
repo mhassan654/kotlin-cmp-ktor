@@ -10,7 +10,9 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -22,13 +24,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import org.koin.compose.viewmodel.koinViewModel
+import org.saavatech.project.presentation.navigation.NavRoutes
 import org.saavatech.project.viewModal.LoginState
 import org.saavatech.project.viewModal.LoginViewModel
 import org.saavatech.project.viewModal.RegisterState
 
 @Composable
-fun LoginScreen(viewModal: LoginViewModel=koinViewModel()){
+fun LoginScreen(navController: NavController, viewModal: LoginViewModel=koinViewModel()){
     Surface(modifier = Modifier.fillMaxSize()){
         val state = viewModal.uiState.collectAsState()
         Column(
@@ -50,7 +54,13 @@ fun LoginScreen(viewModal: LoginViewModel=koinViewModel()){
                 }
 
                 is LoginState.Success->{
-                    Text("Success")
+                    LaunchedEffect(Unit) {
+                        navController.navigate(NavRoutes.Home.route){
+                            popUpTo(NavRoutes.Login.route){
+                                inclusive=true
+                            }
+                        }
+                    }
                 }
 
                 LoginState.Nothing->{
@@ -92,6 +102,10 @@ fun LoginScreen(viewModal: LoginViewModel=koinViewModel()){
 
                         ){
                             Text("Login")
+                        }
+
+                        TextButton(onClick = {navController.navigate(NavRoutes.Register.route)}){
+                            Text("Don't have an account? Register")
                         }
                     }
                 }

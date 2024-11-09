@@ -10,7 +10,9 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -22,12 +24,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import org.koin.compose.viewmodel.koinViewModel
+import org.saavatech.project.presentation.navigation.NavRoutes
 import org.saavatech.project.viewModal.RegisterState
 import org.saavatech.project.viewModal.RegisterViewModal
 
 @Composable
-fun RegisterScreen(viewModal: RegisterViewModal=koinViewModel()){
+fun RegisterScreen(navController: NavController, viewModal: RegisterViewModal=koinViewModel()){
     Surface(modifier = Modifier.fillMaxSize()){
         val state = viewModal.uiState.collectAsState()
         Column(
@@ -49,7 +53,13 @@ fun RegisterScreen(viewModal: RegisterViewModal=koinViewModel()){
                 }
 
                 is RegisterState.Success->{
-                    Text("Success")
+                    LaunchedEffect(Unit) {
+                        navController.navigate(NavRoutes.Home.route){
+                            popUpTo(NavRoutes.Register.route){
+                                inclusive=true
+                            }
+                        }
+                    }
                 }
 
                 RegisterState.Nothing->{
@@ -111,6 +121,10 @@ fun RegisterScreen(viewModal: RegisterViewModal=koinViewModel()){
 
                         ){
                             Text("Register")
+                        }
+
+                        TextButton(onClick = {navController.popBackStack()}){
+                            Text("Already have an account? Login")
                         }
                     }
                 }
